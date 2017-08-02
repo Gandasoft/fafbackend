@@ -1,14 +1,14 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
-    "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "name": "fafbackend",
+    "description": "A Slim Framework restful backend for finding flats",
+    "keywords": ["microframework", "rest", "router", "psr7","find a flat"],
+    "homepage": "https://github.com/Gandasoft/fafbackend.git",
     "license": "MIT",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
+            "name": "Courage Kosna",
+            "email": "courage.kosana@gandasoft.com",
+            "homepage": "http://www.gandasoft.com/"
         }
     ],
     "require": {
