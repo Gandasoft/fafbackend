@@ -45,7 +45,7 @@ $app->delete('usertypes/[{id}]',function($request,$response,$args){
     $usertypes=$stamnt->fetchAll();
     return $this->response->withJson($usertypes);
 });
-$app->delete('usertypes/[{id}]',function($request,$response,$args){
+$app->put('usertypes/[{id}]',function($request,$response,$args){
     $input=$request->getParseBody();
     $sql=$this->db->prepare("Update UserTypes SET type=:type  WHERE id=:id");
     $stamnt=$this->db->prepare($sql);
