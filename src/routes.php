@@ -1,4 +1,5 @@
 <?php
+
 // Routes
 //
 //$app->get('/[{name}]', function ($request, $response, $args) {
@@ -8,6 +9,7 @@
 //    // Render index view
 //    return $this->renderer->render($response, 'index.phtml', $args);
 //});
+
 $app->get('/usertypes',function ($request,$response,$args){
    $stamnt=$this->db->prepare("SELECT * FROM fafdb.UserTypes");
    $stamnt->execute();
@@ -54,4 +56,9 @@ $app->put('usertypes/[{id}]',function($request,$response,$args){
     $stamnt->execute();
     $input['id']=$args[id];
     return $this->response->withJson($input);
+});
+$app->get('/flat',function ($request,$response,$args){
+    $dbutil=new DBUtil();
+     $flats=$dbutil->getflats();
+    return $this->response->withJson($flats);
 });
