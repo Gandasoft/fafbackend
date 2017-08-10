@@ -25,7 +25,7 @@ require __DIR__ . '/../src/Utils/DBUtil.php';
 require __DIR__.'/../src/Utils/Flatutil.php';
 require __DIR__.'/../src/Utils/UserUtil.php';
 require __DIR__ . '/../src/Utils/UserTypeUtil.php';
-require __DIR__ . '/../src/Utils/ErrorUtil.php';
+require __DIR__ . '/../src/DTO/ErrorDTO.php';
 // Register routes
 require __DIR__ . '/../src/routes.php';
 

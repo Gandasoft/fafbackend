@@ -21,6 +21,5 @@ class userTypeUtil extends DBUtil{
         $usertype=$stamnt->fetchObject();
         return $usertype;
     }
-   #add a new usertype
 
 }

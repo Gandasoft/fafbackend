@@ -6,7 +6,7 @@
  * Time: 7:02 AM
  */
 
-class ErrorUtil
+class ErrorDTO
 {
     private $statuscode;
     private $errortext;

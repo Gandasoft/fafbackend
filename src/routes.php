@@ -61,7 +61,7 @@ $app->get('/flat',function ($request,$response,$args){
      $flats=$dbutil->getflats();
     return $this->response->withJson($flats);
 });
-$app->get('/flat/[{id}]',function ($request,$response,$args){
+$app->get('/flat/query?search=[{id}]',function ($request,$response,$args){
     $id=$args['id'];
     $dbutil=new flatUtil($this->db);
     $flat=$dbutil->getflatbyid($id);
@@ -69,7 +69,7 @@ $app->get('/flat/[{id}]',function ($request,$response,$args){
         return $this->response->withJson($flat);
 
     }else{
-        $errorutil=new ErrorUtil();
+        $errorutil=new ErrorDTO();
         $errorutil->setStatus('404');
         $errorutil->setErrortext('The flat was not found');
         $res=['status'=>$errorutil->getStatus(),'errortext'=>$errorutil->getErrortext()];
