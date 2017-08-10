@@ -1,11 +1,5 @@
 <?php
-/**
- * class that handles all db operations
- */
-
-class DBUtil{
-    private $settings;
-    private $db;
+class Userutil extends DBUtil{
 
     public function createUser($username,$password,$Age,$gender,$phone_number,$type){
         require_once 'PassHarsh.php';
@@ -80,53 +74,53 @@ class DBUtil{
         $stment->close();
         return $num_rows>0;
     }
-   /**
-    * fetch user by username
-    * @param String username
-    * */
-   public function getUserByUsername($username){
-       $stment=$this->db->prepare('SELECT username,email,api_key,Age,Gender,phone_number,User_Types WHERE username=?');
-       $stment->bind_param("s",$username);
-       if($stment->execute()){
-           $user=$stment->get_result()->fetch_assoc();
-           $stment->close();
-           return $user;
-       }else{
-           return NULL;
-       }
+    /**
+     * fetch user by username
+     * @param String username
+     * */
+    public function getUserByUsername($username){
+        $stment=$this->db->prepare('SELECT username,email,api_key,Age,Gender,phone_number,User_Types WHERE username=?');
+        $stment->bind_param("s",$username);
+        if($stment->execute()){
+            $user=$stment->get_result()->fetch_assoc();
+            $stment->close();
+            return $user;
+        }else{
+            return NULL;
+        }
 
-   }
-   /**
-    * Fetch user by api_key
-    * @param String $id user id primary key in user table
-    * */
-   public function getApiKeyById($id){
-       $stment=$this->db->prepare('SELECT api_key WHERE id=?');
-       $stment->bind_param("i",$id);
-       if($stment->execute()){
-           $user=$stment->get_result()->fetch_assoc();
-           $stment->close();
-           return $user;
-       }else{
-           return NULL;
-       }
-   }
+    }
+    /**
+     * Fetch user by api_key
+     * @param String $id user id primary key in user table
+     * */
+    public function getApiKeyById($id){
+        $stment=$this->db->prepare('SELECT api_key WHERE id=?');
+        $stment->bind_param("i",$id);
+        if($stment->execute()){
+            $user=$stment->get_result()->fetch_assoc();
+            $stment->close();
+            return $user;
+        }else{
+            return NULL;
+        }
+    }
 
     /**
      * Fetching userid by apikey
      * @param $api_keyfor fetching the user by apikey
      */
-   public function getUserId($api_key){
-       $stment=$this->db->prepare('SELECT id WHERE api_key=?');
-       $stment->bind_param("s",$api_key);
-       if($stment->execute()){
-           $user_id=$stment->get_result()->fetch_assoc();
-           $stment->close();
-           return $user_id;
-       }else{
-           return NULL;
-       }
-   }
+    public function getUserId($api_key){
+        $stment=$this->db->prepare('SELECT id WHERE api_key=?');
+        $stment->bind_param("s",$api_key);
+        if($stment->execute()){
+            $user_id=$stment->get_result()->fetch_assoc();
+            $stment->close();
+            return $user_id;
+        }else{
+            return NULL;
+        }
+    }
 
     /**
      * Validating if an api key exists in the database
@@ -143,12 +137,6 @@ class DBUtil{
         return $num_rows >0;
     }
     public function generateApiKey(){
-       return md5(uniqid(rand(),true));
-    }
-    public function getflats(){
-        $stamnt=$this->db->prepare("SELECT * FROM fafdb.flat");
-        $stamnt->execute();
-        $flats=$stamnt->fetchAll();
-        return $flats;
+        return md5(uniqid(rand(),true));
     }
 }

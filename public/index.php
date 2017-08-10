@@ -16,14 +16,14 @@ require __DIR__ . '/../vendor/autoload.php';
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
-//require __DIR__.'/../src/DBUtil.php';
-// Set up dependencies
+
 require __DIR__ . '/../src/dependencies.php';
 
 // Register middleware
 require __DIR__ . '/../src/middleware.php';
-require __DIR__.'/../src/DBConnect.php';
-require __DIR__ .'/../src/DBUtil.php';
+require __DIR__ . '/../src/Utils/DBUtil.php';
+require __DIR__.'/../src/Utils/Flatutil.php';
+require __DIR__.'/../src/Utils/UserUtil.php';
 // Register routes
 require __DIR__ . '/../src/routes.php';
 

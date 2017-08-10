@@ -33,7 +33,7 @@ $app->get('/usertypes/search/[{query}]',function($request,$responnse,$args){
 });
 $app->post('/usertype',function ($request,$response){
     $input=$request->getParsedBody();
-    $sql="INSERT INTO UserTypes(usertype) VALUES(:usertype)";
+    $sql="INSERT INTO usertypes(usertype) VALUES(:usertype)";
     $stamnt=$this->db->preapre($sql);
     $stamnt->bindParam("usertype",$input['usertype']);
     $stamnt->execute();
@@ -41,7 +41,7 @@ $app->post('/usertype',function ($request,$response){
     return $this->response->withJson($input);
 });
 $app->delete('usertypes/[{id}]',function($request,$response,$args){
-    $stamnt=$this->db->prepare("DELETE FROM UserTypes WHERE id=:id");
+    $stamnt=$this->db->prepare("DELETE FROM usertypes WHERE id=:id");
     $stamnt->bindParam("id",$args['id']);
     $stamnt->execute();
     $usertypes=$stamnt->fetchAll();
@@ -49,7 +49,7 @@ $app->delete('usertypes/[{id}]',function($request,$response,$args){
 });
 $app->put('usertypes/[{id}]',function($request,$response,$args){
     $input=$request->getParseBody();
-    $sql=$this->db->prepare("Update UserTypes SET type=:type  WHERE id=:id");
+    $sql=$this->db->prepare("Update usertypes SET type=:type  WHERE id=:id");
     $stamnt=$this->db->prepare($sql);
     $stamnt->bindParam("id",$args['id']);
     $stamnt->$this->bindParam("type",$input['type']);
@@ -58,7 +58,7 @@ $app->put('usertypes/[{id}]',function($request,$response,$args){
     return $this->response->withJson($input);
 });
 $app->get('/flat',function ($request,$response,$args){
-    $dbutil=new DBUtil();
+      $dbutil=new flatUtil($this->db);
      $flats=$dbutil->getflats();
     return $this->response->withJson($flats);
 });
