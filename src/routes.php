@@ -11,20 +11,20 @@
 //});
 
 $app->get('/usertypes',function ($request,$response,$args){
-   $stamnt=$this->db->prepare("SELECT * FROM fafdb.UserTypes");
+   $stamnt=$this->db->prepare("SELECT * FROM fafdb.usertypes");
    $stamnt->execute();
    $usertypes=$stamnt->fetchAll();
    return $this->response->withJson($usertypes);
 });
 $app->get('/usertypes/[{id}]',function($request,$responnse,$args){
-    $stamnt=$this->db->prepare("SELECT * FROM fafdb.UserTypes WHERE id=:id");
+    $stamnt=$this->db->prepare("SELECT * FROM fafdb.usertypes WHERE id=:id");
     $stamnt->bindParam("id",$args['id']);
     $stamnt->execute();
     $usertypes=$stamnt->fetchObject();
     return $this->response->withJson($usertypes);
 });
 $app->get('/usertypes/search/[{query}]',function($request,$responnse,$args){
-    $stamnt=$this->db->prepare("SELECT * FROM fafdb.UserTypes WHERE UPPER(Type) LIKE :query");
+    $stamnt=$this->db->prepare("SELECT * FROM fafdb.usertypes WHERE UPPER(Type) LIKE :query");
     $query="%".$args['query']."%";
     $stamnt->bindParam("query",$query);
     $stamnt->execute();
