@@ -14,7 +14,7 @@ define('USER_ALREADY_EXISTED',2);
 class DBConnect{
 
     private $connection;
-    function __construct()
+    public function connect()
     {
       require __DIR__.'/../src/settings.php';
         //connecting to mysql database
