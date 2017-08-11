@@ -25,7 +25,16 @@ require __DIR__ . '/../src/Utils/DBUtil.php';
 require __DIR__.'/../src/Utils/Flatutil.php';
 require __DIR__.'/../src/Utils/UserUtil.php';
 require __DIR__ . '/../src/Utils/UserTypeUtil.php';
-require __DIR__ . '/../src/DTO/ErrorDTO.php';
+require __DIR__ . '/../src/DTO/MessageDTO.php';
+require __DIR__ . '/../src/DTO/FlatDTO.php';
+require __DIR__ . '/../src/DTO/GCMDeviceDTO.php';
+require __DIR__ . '/../src/DTO/StatusDTO.php';
+require __DIR__ . '/../src/DTO/UserDTO.php';
+require __DIR__ . '/../src/DTO/UsertypeDTO.php';
+require __DIR__ . '/../src/DTO/AddressDTO.php';
+require __DIR__ . '/../src/DTO/AdvertsDTO.php';
+
+
 // Register routes
 require __DIR__ . '/../src/routes.php';
 

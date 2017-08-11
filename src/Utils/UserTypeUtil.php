@@ -11,6 +11,7 @@ class userTypeUtil extends DBUtil{
         $stamnt=$this->db->prepare("SELECT * FROM fafdb.usertypes");
         $stamnt->execute();
         $usertypes=$stamnt->fetchAll();
+
         return $usertypes;
     }
     #get usertype by id

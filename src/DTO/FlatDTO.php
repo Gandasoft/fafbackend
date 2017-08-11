@@ -10,49 +10,41 @@ class FlatDTO{
     private $flatName;
     private $roomNUmber;
 
-    /**
-     * @return mixed
-     */
+    function __construct(array $data){
+        $this->flatName=$data['flat_name'];
+        $this->roomNUmber=$data['room_number'];
+    }
+
     public function getFlatID()
     {
         return $this->flatID;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getFlatName()
     {
         return $this->flatName;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getRoomNUmber()
     {
         return $this->roomNUmber;
     }
 
-    /**
-     * @param mixed $flatID
-     */
+
     public function setFlatID($flatID)
     {
         $this->flatID = $flatID;
     }
 
-    /**
-     * @param mixed $flatName
-     */
+
     public function setFlatName($flatName)
     {
         $this->flatName = $flatName;
     }
 
-    /**
-     * @param mixed $roomNUmber
-     */
+
     public function setRoomNUmber($roomNUmber)
     {
         $this->roomNUmber = $roomNUmber;

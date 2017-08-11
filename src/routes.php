@@ -69,7 +69,7 @@ $app->get('/flat/query?search=[{id}]',function ($request,$response,$args){
         return $this->response->withJson($flat);
 
     }else{
-        $errorutil=new ErrorDTO();
+        $errorutil=new MessageDTO();
         $errorutil->setStatus('404');
         $errorutil->setErrortext('The flat was not found');
         $res=['status'=>$errorutil->getStatus(),'errortext'=>$errorutil->getErrortext()];

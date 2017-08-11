@@ -7,35 +7,29 @@
  */
 class UsertypeDTO{
     private $usertypeID;
-    private $statustype;
+    private $Usertype;
 
-    /**
-     * @return mixed
-     */
-    public function getStatustype()
-    {
-        return $this->statustype;
-    }
 
-    /**
-     * @return mixed
-     */
+
+
+
     public function getUsertypeID()
     {
         return $this->usertypeID;
     }
 
-    /**
-     * @param mixed $statustype
-     */
-    public function setStatustype($statustype)
+
+    public function getUsertype()
     {
-        $this->statustype = $statustype;
+        return $this->Usertype;
     }
 
-    /**
-     * @param mixed $usertypeID
-     */
+
+    public function setUsertype($Usertype)
+    {
+        $this->Usertype = $Usertype;
+    }
+
     public function setUsertypeID($usertypeID)
     {
         $this->usertypeID = $usertypeID;

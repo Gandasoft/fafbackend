@@ -21,5 +21,6 @@ class flatUtil extends DBUtil   {
         $matchingflats=$stamnt->fetchAll();
         return $matchingflats;
     }
+
 }
 
