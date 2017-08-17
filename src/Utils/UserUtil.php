@@ -11,7 +11,7 @@ class Userutil extends DBUtil{
             //Generation API key
             $api_key=$this->generateApiKey();
             //insert query
-            $stmnt =$this->db->prepare("INSERT INTO Users(Username, Password, Age, Gender, UserTypes, phone_number, api_key) Values(?,?,?,?,?,?,?)");
+            $stmnt =$this->db->prepare("INSERT INTO Users(Username, Password, Age, Gender, UserTypes, phone_number) Values(?,?,?,?,?,?,?)");
             $stmnt->bind_param("sssssss",$username,$password_hash,$Age,$gender,$phone_number,$type,$api_key);
             $result=$stmnt->execute();
             $stmnt->close();
@@ -37,7 +37,7 @@ class Userutil extends DBUtil{
      */
     public function checkLogin($username,$password){
         //fetching user email
-        $stment=$this->db->prepare("SELECT password FROM Users WHERE Username=?");
+        $stment=$this->db->prepare("SELECT password FROM fafdb.users WHERE Username=?");
         $stment->bind_param("s",$username);
         $stment->execute();
         $stment->bind_result($password_harsh);
@@ -66,8 +66,8 @@ class Userutil extends DBUtil{
      * @return boolean
      */
     private function isUserExists($username){
-        $stment=$this->db->prepare("SELECT id from Users WHERE Username=?");
-        $stment=bind_param("s",$username);
+        $stment=$this->db->prepare("SELECT id from Users WHERE Username=:");
+        $stment=bindParam("s",$username);
         $stment->execute();
         $stment->store_result();
         $num_rows=$stment->num_rows();
@@ -79,15 +79,11 @@ class Userutil extends DBUtil{
      * @param String username
      * */
     public function getUserByUsername($username){
-        $stment=$this->db->prepare('SELECT username,email,api_key,Age,Gender,phone_number,User_Types WHERE username=?');
-        $stment->bind_param("s",$username);
-        if($stment->execute()){
-            $user=$stment->get_result()->fetch_assoc();
-            $stment->close();
-            return $user;
-        }else{
-            return NULL;
-        }
+        $stment=$this->db->prepare("SELECT id,username,password,Age,Gender,phone_number,UserTypes FROM fafdb.users WHERE username=:username");
+        $stment->bindParam("username",$username);
+        $stment->execute();
+        $user=$stment->fetchObject();
+        return $user;
 
     }
     /**
@@ -95,7 +91,7 @@ class Userutil extends DBUtil{
      * @param String $id user id primary key in user table
      * */
     public function getApiKeyById($id){
-        $stment=$this->db->prepare('SELECT api_key WHERE id=?');
+        $stment=$this->db->prepare('SELECT password From fafdb.users WHERE id=?');
         $stment->bind_param("i",$id);
         if($stment->execute()){
             $user=$stment->get_result()->fetch_assoc();
@@ -110,16 +106,13 @@ class Userutil extends DBUtil{
      * Fetching userid by apikey
      * @param $api_keyfor fetching the user by apikey
      */
-    public function getUserId($api_key){
-        $stment=$this->db->prepare('SELECT id WHERE api_key=?');
-        $stment->bind_param("s",$api_key);
-        if($stment->execute()){
-            $user_id=$stment->get_result()->fetch_assoc();
-            $stment->close();
-            return $user_id;
-        }else{
-            return NULL;
-        }
+    public function getUserId($username){
+        $stment=$this->db->prepare("SELECT id FROM fafdb.users WHERE Username=:username");
+        $stment->bindParam("username",$username);
+        $stment->execute();
+        $user=$stment->fetch();
+            return $user;
+
     }
 
     /**
@@ -128,7 +121,7 @@ class Userutil extends DBUtil{
      * @return boolean
      */
     public function isValidApiKey($api_key){
-        $stment=$this->db->prepare("SELECT id from Users WHERE api_key=?");
+        $stment=$this->db->prepare("SELECT id,username from Users WHERE password=:api_key");
         $stment->bind_param("s",$api_key);
         $stment->execute();
         $stment->store_result();

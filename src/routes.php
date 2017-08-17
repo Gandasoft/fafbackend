@@ -9,8 +9,9 @@
 //    // Render index view
 //    return $this->renderer->render($response, 'index.phtml', $args);
 //});
-
-$app->get('/usertypes',function ($request,$response,$args){
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
+$app->get('/usertypes',function (Request $request,Response $response,$args){
 
    $usertUtil=new userTypeUtil($this->db);
    $usertypes=$usertUtil->getUsertypes();
@@ -61,20 +62,67 @@ $app->get('/flat',function ($request,$response,$args){
      $flats=$dbutil->getflats();
     return $this->response->withJson($flats);
 });
-$app->get('/flat/query?search=[{id}]',function ($request,$response,$args){
+
+$app->get('/user/username/[{name}]',function ($request,$response,$args){
+    $username=$args['name'];
+    $userutil=new UserUtil($this->db);
+    $user=$userutil->getUserByUsername($username);
+    return $this->response->withJson($user);
+});
+$app->get('/flat/[{id}]',function ($request,$response,$args){
     $id=$args['id'];
+
     $dbutil=new flatUtil($this->db);
     $flat=$dbutil->getflatbyid($id);
-    if($flat!==0){
+    if($flat!==false){
         return $this->response->withJson($flat);
 
     }else{
-        $errorutil=new MessageDTO();
-        $errorutil->setStatus('404');
-        $errorutil->setErrortext('The flat was not found');
-        $res=['status'=>$errorutil->getStatus(),'errortext'=>$errorutil->getErrortext()];
+        $errorutil=new MessageDTO('404',"Search ERROR","The flat you search for was not found");
+        $res=[
+            "statuscode"=>$errorutil->getStatuscode(),
+        "messageType"=>$errorutil->getMessagetype(),
+            "messageText"=>$errorutil->getMessagetext()
+
+            ];
+   
         return $this->response->withJson($res);
 
     }
+
+
+});
+$app->get('/user/[$id]',function($request,$response,$args){
+    $id=$args['id'];
+$userutil=new Userutil($this->db);
+$user=$userutil->getUserId($id);
+return $this->response->withJson($user);
+
+});
+$app->get('/adverts/',function($request,$response,$args){
+$advertutil=new AdvertsUtil($this->db);
+$adverts=$advertutil->getAllAdverts();
+return $this->response->withJson($adverts);
+
+});
+$app->post('/adverts/add',function(Request $request,Response $response,$args){
+   $body=$request->getParsedBody();
+     //get ownerid ,status and flat assign it to the advert owner,status and  flat properties
+    $userutil=new Userutil($this->db);
+    $flatutil=new flatUtil($this->db);
+    $statusutil=new StatusUtil($this->db);
+    $user_id=$userutil->getUserId($body['Advert_owner']);
+    $flat_id=$flatutil->getflatid($body['Flat']);
+    $status_id=$statusutil->getStatusid($body['status']);
+    //get flat id from name and assign it advert flat property
+    $body["Flat"]=$flat_id['id'];
+    $body["Advert_owner"]=$user_id['id'];
+    $body["status"]=$user_id['id'];
+
+    $Advert=new AdvertsDTO($body);
+    $advertutil=new AdvertsUtil($this->db);
+    $message=$advertutil->AddAdvert($Advert);
+
+    return $response->withJson($message);
 
 });

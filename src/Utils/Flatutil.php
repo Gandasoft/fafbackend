@@ -21,6 +21,13 @@ class flatUtil extends DBUtil   {
         $matchingflats=$stamnt->fetchAll();
         return $matchingflats;
     }
+    public function getflatid($name){
+        $stamnt=$this->db->prepare("SELECT id FROM fafdb.flat WHERE flat_name=:name");
+        $stamnt->bindParam("name",$name);
+        $stamnt->execute();
+        $flat=$stamnt->fetch();
+        return $flat;
+    }
 
 }
 
