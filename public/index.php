@@ -26,6 +26,7 @@ require __DIR__.'/../src/Utils/Flatutil.php';
 require __DIR__.'/../src/Utils/UserUtil.php';
 require __DIR__.'/../src/Utils/AdvertsUtil.php';
 require __DIR__ . '/../src/Utils/UserTypeUtil.php';
+require __DIR__ . '/../src/Utils/AcommUtil.php';
 require __DIR__ . '/../src/Utils/StatusUtil.php';
 require __DIR__ . '/../src/DTO/MessageDTO.php';
 require __DIR__ . '/../src/DTO/FlatDTO.php';
