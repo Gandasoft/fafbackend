@@ -5,3 +5,6 @@
  * Date: 8/10/17
  * Time: 2:25 PM
  */
+Class AddressUtil extends DBUtil{
+
+}

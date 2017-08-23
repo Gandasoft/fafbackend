@@ -8,9 +8,9 @@ class AdvertsUtil extends DBUtil {
         return $Advert;
     }
     public function getAllAdverts(){
-        $stamnt=$this->db->prepare("SELECT  A.* FROM fafdb.adverts A JOIN
-           fafdb.users B ON A.Advert_owner=B.id LEFT JOIN fafdb.status c ON A.status= c.status_id
-  LEFT JOIN fafdb.flat as D ON A.Flat=D.id LEFT JOIN fafdb.accommodation E ON A.Accomodation_type=E.id");
+        $stamnt=$this->db->prepare("SELECT * FROM fafdb.adverts A JOIN
+           fafdb.users. B ON A.Advert_owner=B.id  JOIN fafdb.status c ON A.status= c.status_id
+ JOIN fafdb.flat as D ON A.Flat=D.id  JOIN fafdb.accommodation E ON A.Accomodation_type=E.id");
 
         $stamnt->execute();
         $Adverts=$stamnt->fetchAll();
