@@ -13,6 +13,7 @@ class UserDTO{
     private $gender;
     private $usertype;
     private $phonenumber;
+    private $status;
 
     function __construct(array $data)
     {
@@ -22,6 +23,7 @@ class UserDTO{
         $this->gender=$data['gender'];
         $this->usertype=$data['UserType'];
         $this->phonenumber=$data['phonenumber'];
+        $this->status=$data['status'];
     }
 
     public function setUsername($Username)
@@ -100,5 +102,21 @@ class UserDTO{
     public function setUsertype($usertype)
     {
         $this->usertype = $usertype;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

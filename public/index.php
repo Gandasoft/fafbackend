@@ -37,7 +37,7 @@ require __DIR__ . '/../src/DTO/UserDTO.php';
 require __DIR__ . '/../src/DTO/UsertypeDTO.php';
 require __DIR__ . '/../src/DTO/AddressDTO.php';
 require __DIR__ . '/../src/DTO/AdvertsDTO.php';
-
+require __DIR__.'/../src/Routes/UserRoutes.php';
 
 // Register routes
 require __DIR__ . '/../src/routes.php';

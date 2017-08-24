@@ -8,8 +8,8 @@ class AdvertsUtil extends DBUtil {
         return $Advert;
     }
     public function getAllAdverts(){
-        $stamnt=$this->db->prepare("SELECT * FROM fafdb.adverts A JOIN
-           fafdb.users. B ON A.Advert_owner=B.id  JOIN fafdb.status c ON A.status= c.status_id
+        $stamnt=$this->db->prepare("SELECT A.price,E.Type,D.flat_name,D.room_number,D.Date_posted,c.type,B.Username,B.Gender,B.phone_number,B.Age FROM fafdb.adverts A JOIN
+           fafdb.users B ON A.Advert_owner=B.id  JOIN fafdb.status c ON A.status= c.status_id
  JOIN fafdb.flat as D ON A.Flat=D.id  JOIN fafdb.accommodation E ON A.Accomodation_type=E.id");
 
         $stamnt->execute();
@@ -17,18 +17,18 @@ class AdvertsUtil extends DBUtil {
         return $Adverts;
     }
     public function getAdvertsByOwner($ownerID){
-        $stamnt=$this->db->prepare("SELECT A.* FROM (fafdb.adverts A JOIN fafdb.users B ON A.Advert_owner
-  =B.id WHERE B.id=:id)LEFT JOIN fafdb.status c ON A.status=C.status_id
-  LEFT JOIN fafdb.flat as D ON A.Flat=D.id LEFT JOIN fafdb.accommodation E ON A.Accomodation_type=E.id");
+        $stamnt=$this->db->prepare("SELECT A.price,E.Type,D.flat_name,D.room_number,D.Date_posted,c.type,B.Username,B.Gender,B.phone_number,B.Age FROM (fafdb.adverts A JOIN fafdb.users B ON A.Advert_owner
+  =B.id WHERE B.id=:id) JOIN fafdb.status c ON A.status=C.status_id
+ JOIN fafdb.flat as D ON A.Flat=D.id  JOIN fafdb.accommodation E ON A.Accomodation_type=E.id");
         $stamnt->bindParam("id",$ownerID);
         $stamnt->execute();
         $flat=$stamnt->fetchObject();
         return $flat;
     }
     public function getAdvertsBystatus($status){
-        $stamnt=$this->db->prepare("SELECT A.* FROM fafdb.adverts A JOIN fafdb.users B ON A.Advert_owner
+        $stamnt=$this->db->prepare("SELECT A.price,E.Type,D.flat_name,D.room_number,D.Date_posted,c.type,B.Username,B.Gender,B.phone_number,B.Age FROM fafdb.adverts A JOIN fafdb.users B ON A.Advert_owner
   =B.id LEFT JOIN fafdb.status c ON A.status=C.status_id WHERE c.status_id=:status
-  LEFT JOIN fafdb.flat as D ON A.Flat=D.id LEFT JOIN fafdb.accommodation E ON A.Accomodation_type=E.id");
+  JOIN fafdb.flat as D ON A.Flat=D.id  JOIN fafdb.accommodation E ON A.Accomodation_type=E.id");
         $stamnt->bindParam("status",$status);
         $stamnt->execute();
         $adverts=$stamnt->fetchAll();
@@ -36,7 +36,7 @@ class AdvertsUtil extends DBUtil {
     }
     public function getAdByAcommType($accom){
 
-            $stamnt=$this->db->prepare("SELECT A.* FROM (fafdb.adverts A JOIN fafdb.users B ON A.Advert_owner
+            $stamnt=$this->db->prepare("SELECT A.price,E.Type,D.flat_name,D.room_number,D.Date_posted,c.type,B.Username,B.Gender,B.phone_number,B.Age FROM (fafdb.adverts A JOIN fafdb.users B ON A.Advert_owner
   =B.id WHERE B.id=:id)LEFT JOIN fafdb.status c
   LEFT JOIN fafdb.flat as D ON A.Flat=D.id LEFT JOIN fafdb.accommodation E ON A.Accomodation_type=E.id WHERE E.id=:accom");
             $stamnt->bindParam("accom",$accom);
@@ -47,7 +47,7 @@ class AdvertsUtil extends DBUtil {
     }
 
     public function getAdvertsByPrice($price){
-        $stamnt=$this->db->prepare("SELECT A.* FROM fafdb.adverts A JOIN fafdb.users B ON A.Advert_owner
+        $stamnt=$this->db->prepare("SELECT A.price,E.Type,D.flat_name,D.room_number,D.Date_posted,c.type,B.Username,B.Gender,B.phone_number,B.Age FROM fafdb.adverts A JOIN fafdb.users B ON A.Advert_owner
   =B.id LEFT JOIN fafdb.status c ON A.status=C.status_id
   LEFT JOIN fafdb.flat as D ON A.Flat=D.id LEFT JOIN fafdb.accommodation E ON A.Accomodation_type=E.id WHERE A.price=:price");
         $stamnt->bindParam("price",$price);

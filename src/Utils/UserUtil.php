@@ -1,20 +1,33 @@
 <?php
 class Userutil extends DBUtil{
 
-    public function createUser($username,$password,$Age,$gender,$phone_number,$type){
+    public function createUser(UserDTO $userdto){
         require_once 'PassHarsh.php';
         $response=array();
         //first check if user already exists in db
-        if(!$this->isUserExists($username)){
-            //generate password hash
-            $password_hash=PassHarsh::hash($password);
-            //Generation API key
-            $api_key=$this->generateApiKey();
+        if(!$this->isUserExists($userdto->getUsername())){
+//            //generate password hash
+//            $password_hash=PassHarsh::hash($password);
+//            //Generation API key
+//            $api_key=$this->generateApiKey();
             //insert query
-            $stmnt =$this->db->prepare("INSERT INTO Users(Username, Password, Age, Gender, UserTypes, phone_number) Values(?,?,?,?,?,?,?)");
-            $stmnt->bind_param("sssssss",$username,$password_hash,$Age,$gender,$phone_number,$type,$api_key);
-            $result=$stmnt->execute();
-            $stmnt->close();
+
+            $stamnt=$this->db->prepare("INSERT INTO fafdb.users (Username,Password,Age,Gender,phone_number,status)VALUES 
+            
+            (:username,:password,:age,:gender,:phonenumber,:usertype,:status)");
+            $result=$stamnt->execute([
+                "username"=>$userdto->getUsername(),
+                "password"=>$userdto->getPassword(),
+                "age"=>$userdto->getAge(),
+                "gender"=>$userdto->getGender(),
+                "phonenumber"=>$userdto->getPhonenumber(),
+                "usertype"=>$userdto->getUsertype(),
+                "status"=>$userdto->getStatus()
+
+            ]);
+
+            $result=$stamnt->execute();
+            $stamnt->close();
             //check for successful insertion
             if($result){
                 //user successfully inserted
