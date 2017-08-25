@@ -9,38 +9,38 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ .DIRECTORY_SEPARATOR. '..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
 
 
 
 // Instantiate the app
-$settings = require __DIR__ . '/../src/settings.php';
+$settings = require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'settings.php';
 $app = new \Slim\App($settings);
 
-require __DIR__ . '/../src/dependencies.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'dependencies.php';
 
 // Register middleware
-require __DIR__ . '/../src/middleware.php';
-require __DIR__ . '/../src/Utils/DBUtil.php';
-require __DIR__.'/../src/Utils/Flatutil.php';
-require __DIR__.'/../src/Utils/UserUtil.php';
-require __DIR__.'/../src/Utils/AdvertsUtil.php';
-require __DIR__ . '/../src/Utils/UserTypeUtil.php';
-require __DIR__ . '/../src/Utils/AcommUtil.php';
-require __DIR__ . '/../src/Routes/AdvertRoutes.php';
-require __DIR__ . '/../src/Utils/StatusUtil.php';
-require __DIR__ . '/../src/DTO/MessageDTO.php';
-require __DIR__ . '/../src/DTO/FlatDTO.php';
-require __DIR__ . '/../src/DTO/GCMDeviceDTO.php';
-require __DIR__ . '/../src/DTO/StatusDTO.php';
-require __DIR__ . '/../src/DTO/UserDTO.php';
-require __DIR__ . '/../src/DTO/UsertypeDTO.php';
-require __DIR__ . '/../src/DTO/AddressDTO.php';
-require __DIR__ . '/../src/DTO/AdvertsDTO.php';
+require __DIR__ . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'middleware.php';
+require __DIR__ . DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Utils'.DIRECTORY_SEPARATOR.'DBUtil.php';
+require __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Utils'.DIRECTORY_SEPARATOR.'Flatutil.php';
+require __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Utils'.DIRECTORY_SEPARATOR.'UserUtil.php';
+require __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Utils'.DIRECTORY_SEPARATOR.'AdvertsUtil.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Utils'.DIRECTORY_SEPARATOR.'UserTypeUtil.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Utils'.DIRECTORY_SEPARATOR.'AcommUtil.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'AdvertRoutes.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Utils'.DIRECTORY_SEPARATOR.'StatusUtil.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'DTO'.DIRECTORY_SEPARATOR.'MessageDTO.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'DTO'.DIRECTORY_SEPARATOR.'FlatDTO.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'DTO'.DIRECTORY_SEPARATOR.'GCMDeviceDTO.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'DTO'.DIRECTORY_SEPARATOR.'StatusDTO.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'DTO'.DIRECTORY_SEPARATOR.'UserDTO.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'DTO'.DIRECTORY_SEPARATOR.'UsertypeDTO.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'DTO'.DIRECTORY_SEPARATOR.'AddressDTO.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'DTO'.DIRECTORY_SEPARATOR.'AdvertsDTO.php';
 
 
 // Register routes
-require __DIR__ . '/../src/routes.php';
+require __DIR__ .DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'routes.php';
 
 // Run app
 $app->run();
