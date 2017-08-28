@@ -21,7 +21,7 @@ class UserDTO
         $this->password = $data['Password'];
         $this->age = $data['age'];
         $this->gender = $data['gender'];
-        $this->usertype = $data['UserType'];
+        $this->usertype = $data['UserTypes'];
         $this->phonenumber = $data['phonenumber'];
 
     }

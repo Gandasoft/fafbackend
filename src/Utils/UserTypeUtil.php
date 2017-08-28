@@ -22,5 +22,12 @@ class userTypeUtil extends DBUtil{
         $usertype=$stamnt->fetchObject();
         return $usertype;
     }
+    public function getIdByUsertype($type){
+        $stamnt=$this->db->prepare("SELECT * FROM fafdb.usertypes WHERE Type=:type");
+        $stamnt->bindParam("type",$type);
+        $stamnt->execute();
+        $usertype=$stamnt->fetch();
+        return $usertype;
+    }
 
 }

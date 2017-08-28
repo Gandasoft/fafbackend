@@ -61,18 +61,16 @@ $app->post('/user/add',function(Request $request,Response $response,$args){
     //get the usertype id and put the type name into the object to be send to the db
     $userutil=new Userutil($this->db);
     $usertypeutil=new userTypeUtil($this->db);
-    $usertype=$usertypeutil->getUsertypeById($body['UserType']);
-//
-//    $body["usertype"]=$usertype['id'];
-//
-//    $userDTO=new UserDTO($body);
-//    $message=$userutil->createUser($userDTO);
-//
-//    $response=["status"=>$message->getStatuscode(),
-//        "message"=>$message->getMessagetext(),
-//        "messageType"=>$message->getMessagetype()
-//    ];
+    $usertype=$usertypeutil->getIdByUsertype($body['UserTypes']);
 
-    return $this->response->withJson($usertype);
+  $body["UserTypes"]=$usertype['id'];
+
+   $userDTO=new UserDTO($body);
+   $message=$userutil->createUser($userDTO);
+
+   $res=["status"=>$message->getStatuscode(), "message"=>$message->getMessagetext(),
+        "messageType"=>$message->getMessagetype()    ];
+
+    return $this->response->withJson($res);
 
 });

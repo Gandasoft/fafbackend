@@ -9,8 +9,12 @@ class UsertypeDTO{
     private $usertypeID;
     private $Usertype;
 
+function __construct(array $data)
 
-
+{
+    $this->usertypeID=$data['id'];
+    $this->Usertype=$data['Type'];
+}
 
 
     public function getUsertypeID()

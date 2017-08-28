@@ -41,30 +41,8 @@ class Userutil extends DBUtil{
      * @param String $password User login password
      * @return  boolean User login status success/fail
      */
-    public function checkLogin($username,$password){
-        //fetching user email
-//        $stment=$this->db->prepare("SELECT password FROM fafdb.users WHERE Username=?");
-//        $stment->bind_param("s",$username);
-//        $stment->execute();
-//        //$stment->bind_result($password_harsh);
-//        $stment->store_result();
-//        if($stment->num_rows >0 ){
-//            //found user with the username
-//            //now verify password
-//            $stment->fetch();
-//            $stment->close();
-//            if(PassHarsh::check_password($password_harsh,$password)){
-//                return TRUE;
-//            }else{
-//                //user password is incorrect
-//                return FALSE;
-//            }}else{
-//            $stment->close();
-//            //user with the given username does not exist
-//
-//        }
 
-    }
+
 
     /**
      * checking for duplicate user by username
@@ -85,7 +63,7 @@ class Userutil extends DBUtil{
      * @param String username
      * */
     public function getUserByUsername($username){
-        $stment=$this->db->prepare("SELECT id,username,password,Age,Gender,phone_number,UserTypes FROM fafdb.users WHERE username=:username");
+        $stment=$this->db->prepare("SELECT A.Username,A.Age,A.Gender,A.phone_number,B.Type FROM fafdb.users A,fafdb.usertypes B WHERE A.Username=:username");
         $stment->bindParam("username",$username);
         $stment->execute();
         $user=$stment->fetchObject();
