@@ -42,3 +42,9 @@ $app->get('/flat/search/[{query}]',function($request,$responnse,$args){
 
     return $this->response->withJson($flats);
 });
+$app->get('/flats/',function($request,$responnse,$args){
+    $flatutil=new flatUtil($this->db);
+    $flats=$flatutil->getflats();
+
+    return $this->response->withJson($flats);
+});

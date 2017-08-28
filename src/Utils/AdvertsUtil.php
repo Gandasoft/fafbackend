@@ -60,25 +60,24 @@ class AdvertsUtil extends DBUtil {
         *add the flatDTO first into the DB then use the ID to fill in the flat field of this object
          * insert the advertDTO into the db
          */
-
-        $stamnt=$this->db->prepare("INSERT INTO fafdb.adverts (Advert_owner,Accomodation_type,price,Flat,status)VALUES 
+          try{
+              $stamnt=$this->db->prepare("INSERT INTO fafdb.adverts (Advert_owner,Accomodation_type,price,Flat,status)VALUES 
             (:username,:type,:price,:flat,:status)");
-        $result=$stamnt->execute([
-           "username"=>$advertDTO->getAdvertOwner(),
-           "type"=>$advertDTO->getAccomodationType(),
-           "price"=>$advertDTO->getPrice(),
-           "flat"=>$advertDTO->getFlat(),
-           "status"=>$advertDTO->getStatus()
+              $stamnt->execute([
+                  "username"=>$advertDTO->getAdvertOwner(),
+                  "type"=>$advertDTO->getAccomodationType(),
+                  "price"=>$advertDTO->getPrice(),
+                  "flat"=>$advertDTO->getFlat(),
+                  "status"=>$advertDTO->getStatus()
 
-       ]);
-       if(!$result){
-           $error =new MessageDTO("704","database insertion error","your record could not be served");
-           return $error;
+              ]);
+              $message=new MessageDTO(200,"success","record inserted into DB");
+              return $message;
+          }catch(PDOException $e){
+              $error =new MessageDTO("704","database insertion error","your record could not be served ".$e->getMessage());
+              return $error;
+        }
 
-       }else{
-            $message=new MessageDTO(200,"success","record inserted into DB");
-            return $message;
-       }
 
     }
 }

@@ -1,46 +1,39 @@
 <?php
 class Userutil extends DBUtil{
 
-    public function createUser(UserDTO $userdto){
-        require_once 'PassHarsh.php';
-        $response=array();
+    public function createUser(UserDTO $userdto)
+    {
+       // require_once 'PassHarsh.php';
+
         //first check if user already exists in db
-        if(!$this->isUserExists($userdto->getUsername())){
+
 //            //generate password hash
 //            $password_hash=PassHarsh::hash($password);
 //            //Generation API key
 //            $api_key=$this->generateApiKey();
-            //insert query
-
-            $stamnt=$this->db->prepare("INSERT INTO fafdb.users (Username,Password,Age,Gender,phone_number,status)VALUES 
+        //insert query
+        try {
+            $stamnt = $this->db->prepare("INSERT INTO fafdb.users (Username,Password,Age,Gender,phone_number,UserTypes) VALUES 
             
-            (:username,:password,:age,:gender,:phonenumber,:usertype,:status)");
-            $result=$stamnt->execute([
-                "username"=>$userdto->getUsername(),
-                "password"=>$userdto->getPassword(),
-                "age"=>$userdto->getAge(),
-                "gender"=>$userdto->getGender(),
-                "phonenumber"=>$userdto->getPhonenumber(),
-                "usertype"=>$userdto->getUsertype(),
-                "status"=>$userdto->getStatus()
+            (:username,:password,:age,:gender,:phonenumber,:usertype)");
+            $stamnt->execute([
+                "username" => $userdto->getUsername(),
+                "password" => $userdto->getPassword(),
+                "age" => $userdto->getAge(),
+                "gender" => $userdto->getGender(),
+                "phonenumber" => $userdto->getPhonenumber(),
+                "usertype" => $userdto->getUsertype(),
+
 
             ]);
-
-            $result=$stamnt->execute();
-            $stamnt->close();
-            //check for successful insertion
-            if($result){
-                //user successfully inserted
-                return USER_CREATED_SUCCESSFULLY;
-            }else{
-                return USER_CREATE_FAILED;
-            }
+            $message = new MessageDTO(200, "success", "record inserted into DB");
+            return $message;
+        } catch (PDOException $e) {
+            $error = new MessageDTO(704, "database insertion error", "your record could not be served " . $e->getMessage());
+            return $error;
 
 
-        }else{
-            return USER_ALREADY_EXISTED;
         }
-        return $response;
     }
 
     /**
@@ -50,26 +43,26 @@ class Userutil extends DBUtil{
      */
     public function checkLogin($username,$password){
         //fetching user email
-        $stment=$this->db->prepare("SELECT password FROM fafdb.users WHERE Username=?");
-        $stment->bind_param("s",$username);
-        $stment->execute();
-        $stment->bind_result($password_harsh);
-        $stment->store_result();
-        if($stment->num_rows >0 ){
-            //found user with the username
-            //now verify password
-            $stment->fetch();
-            $stment->close();
-            if(PassHarsh::check_password($password_harsh,$password)){
-                return TRUE;
-            }else{
-                //user password is incorrect
-                return FALSE;
-            }}else{
-            $stment->close();
-            //user with the given username does not exist
-
-        }
+//        $stment=$this->db->prepare("SELECT password FROM fafdb.users WHERE Username=?");
+//        $stment->bind_param("s",$username);
+//        $stment->execute();
+//        //$stment->bind_result($password_harsh);
+//        $stment->store_result();
+//        if($stment->num_rows >0 ){
+//            //found user with the username
+//            //now verify password
+//            $stment->fetch();
+//            $stment->close();
+//            if(PassHarsh::check_password($password_harsh,$password)){
+//                return TRUE;
+//            }else{
+//                //user password is incorrect
+//                return FALSE;
+//            }}else{
+//            $stment->close();
+//            //user with the given username does not exist
+//
+//        }
 
     }
 

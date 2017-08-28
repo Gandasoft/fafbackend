@@ -1,5 +1,6 @@
 <?php
-
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 $app->get('/usertypes',function ( $request, $response,$args){
 
     $usertUtil=new userTypeUtil($this->db);
@@ -11,7 +12,7 @@ $app->get('/usertype/[{id}]',function($request,$response,$args){
     $id=$args['id'];
     $usertypeutil=new UserTypeUtil($this->db);
     $usertype=$usertypeutil->getUsertypeById($id);
-    return $this->response->withJson($usertypegit 
+    return $this->response->withJson($usertype);
 });
 
 $app->post('/usertype',function ($request,$response){
@@ -40,11 +41,7 @@ $app->put('userTypeUtil/[{id}]',function($request,$response,$args){
     $input['id']=$args[id];
     return $this->response->withJson($input);
 });
-$app->get('/flat',function ($request,$response,$args){
-    $dbutil=new flatUtil($this->db);
-    $flats=$dbutil->getflats();
-    return $this->response->withJson($flats);
-});
+
 
 $app->get('/user/username/[{name}]',function ($request,$response,$args){
     $username=$args['name'];
@@ -57,5 +54,25 @@ $app->get('/user/[$id]',function($request,$response,$args){
     $userutil=new Userutil($this->db);
     $user=$userutil->getUserId($id);
     return $this->response->withJson($user);
+
+});
+$app->post('/user/add',function(Request $request,Response $response,$args){
+    $body=$request->getParsedBody();
+    //get the usertype id and put the type name into the object to be send to the db
+    $userutil=new Userutil($this->db);
+    $usertypeutil=new userTypeUtil($this->db);
+    $usertype=$usertypeutil->getUsertypeById($body['UserType']);
+//
+//    $body["usertype"]=$usertype['id'];
+//
+//    $userDTO=new UserDTO($body);
+//    $message=$userutil->createUser($userDTO);
+//
+//    $response=["status"=>$message->getStatuscode(),
+//        "message"=>$message->getMessagetext(),
+//        "messageType"=>$message->getMessagetype()
+//    ];
+
+    return $this->response->withJson($usertype);
 
 });
